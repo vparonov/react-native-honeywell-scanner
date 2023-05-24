@@ -37,7 +37,17 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
         return "HoneywellScanner";
     }
 
-    /**
+    // Required for rn built in EventEmitter Calls.
+    @ReactMethod
+    public void addListener(String eventName) {
+
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+
+    } 
+/**
      * Send event to javascript
      *
      * @param eventName Name of the event
