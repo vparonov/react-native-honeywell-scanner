@@ -87,6 +87,13 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                         reader.setProperty(BarcodeReader.PROPERTY_EAN_13_CHECK_DIGIT_TRANSMIT_ENABLED, true);
                         reader.setProperty(BarcodeReader.PROPERTY_EAN_13_TWO_CHAR_ADDENDA_ENABLED, true);
                         reader.setProperty(BarcodeReader.PROPERTY_EAN_13_FIVE_CHAR_ADDENDA_ENABLED, true);
+
+                        reader.setProperty(BarcodeReader.PROPERTY_UPC_A_ENABLE, true);
+                        reader.setProperty(BarcodeReader.PROPERTY_QR_CODE_ENABLED, true);
+                        reader.setProperty(BarcodeReader.PROPERTY_STANDARD_25_ENABLED, true);
+                        reader.setProperty(BarcodeReader.PROPERTY_DATAMATRIX_ENABLED, true);
+                        reader.setProperty(BarcodeReader.PROPERTY_CODE_128_ENABLED, true);
+ 
                         promise.resolve(true);
                     } catch (ScannerUnavailableException | UnsupportedPropertyException e) {
                         promise.resolve(false);
