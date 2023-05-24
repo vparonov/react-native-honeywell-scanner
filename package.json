@@ -11,8 +11,8 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/vparonov/react-native-honeywell-scanner.git",
-		"baseUrl": "https://github.com/vparonov/react-native-honeywell-scanner.git"
+		"url": "git+https://github.com/AMI3GOLtd/react-native-honeywell-scanner.git",
+		"baseUrl": "https://github.com/AMI3GOLtd/react-native-honeywell-scanner.git"
 	},
 	"keywords": [
 		"react-native",
