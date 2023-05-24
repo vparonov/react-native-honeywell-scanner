@@ -95,7 +95,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                         properties.put( BarcodeReader.PROPERTY_CODE_39_MAXIMUM_LENGTH, 1000 );
                         properties.put( BarcodeReader.PROPERTY_CENTER_DECODE, true );
                         properties.put( BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, false );
-                        properties.put( BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_NOTIFICATION_GOOD_READ_ENABLED, true );
          
                         promise.resolve(true);
                     } catch (ScannerUnavailableException | UnsupportedPropertyException e) {
