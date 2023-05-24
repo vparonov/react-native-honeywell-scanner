@@ -81,19 +81,22 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                     reader.addBarcodeListener(HoneywellScannerModule.this);
                     try {
                         reader.claim();
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_8_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_8_CHECK_DIGIT_TRANSMIT_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_CHECK_DIGIT_TRANSMIT_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_TWO_CHAR_ADDENDA_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_FIVE_CHAR_ADDENDA_ENABLED, true);
-
-                        reader.setProperty(BarcodeReader.PROPERTY_UPC_A_ENABLE, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_QR_CODE_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_STANDARD_25_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_DATAMATRIX_ENABLED, true);
-                        reader.setProperty(BarcodeReader.PROPERTY_CODE_128_ENABLED, true);
- 
+                        properties.put( BarcodeReader.PROPERTY_CODE_128_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_GS1_128_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_QR_CODE_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_CODE_39_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_DATAMATRIX_ENABLED, true );
+                        properties.put( BarcodeReader.PROPERTY_UPC_A_ENABLE, true );
+                        properties.put( BarcodeReader.PROPERTY_EAN_13_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_AZTEC_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_CODABAR_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_INTERLEAVED_25_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_PDF_417_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_CODE_39_MAXIMUM_LENGTH, 1000 );
+                        properties.put( BarcodeReader.PROPERTY_CENTER_DECODE, true );
+                        properties.put( BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, false );
+                        properties.put( BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, true );
+         
                         promise.resolve(true);
                     } catch (ScannerUnavailableException | UnsupportedPropertyException e) {
                         promise.resolve(false);
