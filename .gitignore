@@ -47,5 +47,3 @@ buck-out/
 # NPM
 .npmrc
 
-#TSC
-/dist
