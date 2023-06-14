@@ -88,14 +88,14 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                         reader.setProperty(BarcodeReader.PROPERTY_CODE_39_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_DATAMATRIX_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_UPC_A_ENABLE, true );
-                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_ENABLED, false );
-                        reader.setProperty(BarcodeReader.PROPERTY_AZTEC_ENABLED, false );
-                        reader.setProperty(BarcodeReader.PROPERTY_CODABAR_ENABLED, false );
-                        reader.setProperty(BarcodeReader.PROPERTY_INTERLEAVED_25_ENABLED, false );
-                        reader.setProperty(BarcodeReader.PROPERTY_PDF_417_ENABLED, false );
+                        reader.setProperty(BarcodeReader.PROPERTY_EAN_13_ENABLED, true );
+                        reader.setProperty(BarcodeReader.PROPERTY_AZTEC_ENABLED, true );
+                        reader.setProperty(BarcodeReader.PROPERTY_CODABAR_ENABLED, true );
+                        reader.setProperty(BarcodeReader.PROPERTY_INTERLEAVED_25_ENABLED, true );
+                        reader.setProperty(BarcodeReader.PROPERTY_PDF_417_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_CODE_39_MAXIMUM_LENGTH, 1000 );
                         reader.setProperty(BarcodeReader.PROPERTY_CENTER_DECODE, true );
-                        reader.setProperty(BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, false );
+                        reader.setProperty(BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_NOTIFICATION_GOOD_READ_ENABLED, true );
           
                         promise.resolve(true);
