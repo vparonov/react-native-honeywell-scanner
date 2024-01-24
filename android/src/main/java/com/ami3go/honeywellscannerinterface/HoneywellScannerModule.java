@@ -23,7 +23,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
     private final ReactApplicationContext reactContext;
     private AidcManager manager;
     private BarcodeReader reader;
-
+    private String illumination = "0";
     private static final String BARCODE_READ_SUCCESS = "barcodeReadSuccess";
     private static final String BARCODE_READ_FAIL = "barcodeReadFail";
 
@@ -69,6 +69,10 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
     /*******************************/
     /** Methods Available from JS **/
     /*******************************/
+    @ReactMethod
+    public void setIllumination(String illumination) {
+        this.illumination = illumination;
+    }
 
     @ReactMethod
     public void startReader(final Promise promise) {
@@ -81,7 +85,8 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                     reader.addBarcodeListener(HoneywellScannerModule.this);
                     try {
                         reader.claim();
-                
+                        
+                        reader.setProperty(BarcodeReader.PROPERTY_IMAGER_LIGHT_INTENSITY, this.illumination);
                         reader.setProperty(BarcodeReader.PROPERTY_CODE_128_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_GS1_128_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_QR_CODE_ENABLED, true );
