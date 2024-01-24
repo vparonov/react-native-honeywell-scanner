@@ -59,7 +59,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
             // only handle trigger presses
             // turn on/off aimer, illumination and decoding
             reader.aim(event.getState());
-            reader.light(HoneywellBarcodeReader.light);
+            reader.light(HoneywellScannerModule.light);
             reader.decode(event.getState());
         } catch (ScannerNotClaimedException e) {
         } catch (ScannerUnavailableException e) {
@@ -83,7 +83,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
     /** Methods Available from JS **/
     /*******************************/
     @ReactMethod
-    public void setIllumination(boolean _light) {
+    public void setLight(boolean _light) {
         HoneywellScannerModule.light = _light;
     }
 
