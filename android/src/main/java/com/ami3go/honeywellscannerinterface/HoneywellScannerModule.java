@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static com.ami3go.honeywellscannerinterface.HoneywellScannerPackage.HoneyWellTAG;
 
-public class HoneywellScannerModule extends ReactContextBaseJavaModule implements BarcodeReader.BarcodeListener {
+public class HoneywellScannerModule extends ReactContextBaseJavaModule implements BarcodeReader.BarcodeListener,BarcodeReader.TriggerListener {
 
     // Debugging
     private static final boolean D = true;
@@ -23,7 +23,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
     private final ReactApplicationContext reactContext;
     private AidcManager manager;
     private BarcodeReader reader;
-    private String illumination = "0";
+    private static boolean light = false;
     private static final String BARCODE_READ_SUCCESS = "barcodeReadSuccess";
     private static final String BARCODE_READ_FAIL = "barcodeReadFail";
 
@@ -52,6 +52,19 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
         }
     }
 
+
+    @Override
+    public void onTriggerEvent(TriggerStateChangeEvent event) {
+        try {
+            // only handle trigger presses
+            // turn on/off aimer, illumination and decoding
+            reader.aim(event.getState());
+            reader.light(HoneywellBarcodeReader.light);
+            reader.decode(event.getState());
+        } catch (ScannerNotClaimedException e) {
+        } catch (ScannerUnavailableException e) {
+        }
+    }
     @Override
     public void onBarcodeEvent(BarcodeReadEvent barcodeReadEvent) {
         if (D) Log.d(HoneyWellTAG, "HoneywellBarcodeReader - Barcode scan read");
@@ -70,8 +83,8 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
     /** Methods Available from JS **/
     /*******************************/
     @ReactMethod
-    public void setIllumination(String illumination) {
-        this.illumination = illumination;
+    public void setIllumination(boolean _light) {
+        HoneywellScannerModule.light = _light;
     }
 
     @ReactMethod
@@ -82,11 +95,19 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                 manager = aidcManager;
                 reader = manager.createBarcodeReader();
                 if (reader != null) {
+                    try {
+                        reader.setProperty(BarcodeReader.PROPERTY_TRIGGER_CONTROL_MODE,
+                                BarcodeReader.TRIGGER_CONTROL_MODE_CLIENT_CONTROL);
+                    } catch (UnsupportedPropertyException e) {
+                        promise.resolve(false);
+                        e.printStackTrace();
+                        return;
+                    }
                     reader.addBarcodeListener(HoneywellScannerModule.this);
+                    reader.addTriggerListener(HoneywellScannerModule.this);
                     try {
                         reader.claim();
                         
-                        reader.setProperty(BarcodeReader.PROPERTY_IMAGER_LIGHT_INTENSITY, this.illumination);
                         reader.setProperty(BarcodeReader.PROPERTY_CODE_128_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_GS1_128_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_QR_CODE_ENABLED, true );
@@ -105,7 +126,7 @@ public class HoneywellScannerModule extends ReactContextBaseJavaModule implement
                         reader.setProperty(BarcodeReader.PROPERTY_CENTER_DECODE, true );
                         reader.setProperty(BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED, true );
                         reader.setProperty(BarcodeReader.PROPERTY_NOTIFICATION_GOOD_READ_ENABLED, true );
-          
+                        
                         promise.resolve(true);
                     } catch (ScannerUnavailableException | UnsupportedPropertyException e) {
                         promise.resolve(false);
